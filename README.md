@@ -6,15 +6,15 @@ Simple tool to investigate files with different encoding than passed.
 
 To use tool try run command in terminal:
 
-    ```bash
-    node encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]
-    ```
+```bash
+node encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]
+```
 
 or
 
-    ```bash
-    ./encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]
-    ```
+```bash
+./encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]
+```
 
 ## License
 
