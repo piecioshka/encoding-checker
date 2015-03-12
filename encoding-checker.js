@@ -38,45 +38,34 @@ args.forEach(function (val, index) {
     }
 });
 
+function verifyDirectory(path) {
+    // Check that path exists.
+    var stat = fs.lstatSync(path);
+
+    // Check that path is not directory.
+    if (!stat.isDirectory()) {
+        throw new Error('Error: ' + path + ' is not a directory');
+    }
+}
+
+function verifyFile(path) {
+    var status = true;
+
+    // Check that path exists.
+    var stat = fs.lstatSync(path);
+
+    // Check that path is not directory.
+    if (!stat.isFile()) {
+        status = false;
+    }
+
+    return status;
+}
+
 // Error handling
-var stats;
-
-// Check that path exists.
-try {
-    stats = fs.lstatSync(directory);
-} catch (e) {
-    throw new Error(e);
-}
-
-// Check that path is not directory.
-if (!stats.isDirectory()) {
-    throw new Error('Argument: ' + directory + ' is not a directory');
-}
+verifyDirectory(directory);
 
 // ---------------------------------------------------------------------------------------------------------------------
-
-function walk(dir, done) {
-    var results = [];
-    fs.readdir(dir, function (err, list) {
-        if (err) return done(err);
-        var pending = list.length;
-        if (!pending) return done(null, results);
-        list.forEach(function (file) {
-            file = path.resolve(dir, file);
-            fs.stat(file, function (err, stat) {
-                if (stat && stat.isDirectory()) {
-                    walk(file, function (err, res) {
-                        results = results.concat(res);
-                        if (!--pending) done(null, results);
-                    });
-                } else {
-                    results.push(file);
-                    if (!--pending) done(null, results);
-                }
-            });
-        });
-    });
-}
 
 function parseCharset(stdout) {
     var result = null;
@@ -113,6 +102,11 @@ exec(command, options, function (err, stdout) {
 
         // Ignore last empty line.
         if (!filename) {
+            return;
+        }
+
+        // Check that is file
+        if (!verifyFile(filename)) {
             return;
         }
 

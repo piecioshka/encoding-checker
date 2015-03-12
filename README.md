@@ -34,16 +34,13 @@ Command run in current project on my device:
 piecioshka in ~/projects/encoding-checker on master λ ./encoding-checker.js
 
 [us-ascii]    "./.gitignore"
-[binary]      "./.idea"
 [us-ascii]    "./.idea/.name"
 [us-ascii]    "./.idea/encoding-checker.iml"
 [us-ascii]    "./.idea/encodings.xml"
-[binary]      "./.idea/inspectionProfiles"
 [us-ascii]    "./.idea/inspectionProfiles/profiles_settings.xml"
 [us-ascii]    "./.idea/inspectionProfiles/Project_Default.xml"
 [us-ascii]    "./.idea/misc.xml"
 [us-ascii]    "./.idea/modules.xml"
-[binary]      "./.idea/scopes"
 [us-ascii]    "./.idea/scopes/scope_settings.xml"
 [us-ascii]    "./.idea/vcs.xml"
 [us-ascii]    "./.idea/workspace.xml"
