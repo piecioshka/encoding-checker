@@ -7,13 +7,13 @@ Simple tool to investigate files with different encoding than passed.
 To use tool try run command in terminal:
 
 ```bash
-node encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]
+node encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]
 ```
 
 or
 
 ```
-./encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]
+./encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]
 ```
 
 ## Arguments
@@ -21,9 +21,9 @@ or
 List of arguments with short description.
 
 ```
-directory   Path to directory witch will be analyze. Default: .
-encoding    Name of encoding witch will be ignore in results list.
-help        Show this message.
+-d | --directory <arg>   Path to directory witch will be analyze. Default: "."
+-e | --encoding <arg>    Name of encoding witch will be ignore in results list.
+-h | --help              Show this message.
 ```
 
 ## Example

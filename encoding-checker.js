@@ -3,17 +3,16 @@
 'use strict';
 
 var fs = require('fs');
-var path = require('path');
 var exec = require('child_process').exec;
 
 var directory = '.';
 var encoding = '';
 
-var help = "Usage: ./encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]\n\n" +
+var help = "Usage: ./encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]\n\n" +
     "List of arguments which you can use:\n" +
-    "   directory  Path to directory witch will be analyze. Default: \".\"\n" +
-    "   encoding   Name of encoding witch will be ignore in results list.\n" +
-    "   help       Show this message.";
+    "   -d | --directory <arg>   Path to directory witch will be analyze. Default: \".\"\n" +
+    "   -e | --encoding <arg>    Name of encoding witch will be ignore in results list.\n" +
+    "   -h | --help              Show this message.";
 
 var args = process.argv.slice(2);
 
@@ -49,17 +48,11 @@ function verifyDirectory(path) {
 }
 
 function verifyFile(path) {
-    var status = true;
-
     // Check that path exists.
     var stat = fs.lstatSync(path);
 
     // Check that path is not directory.
-    if (!stat.isFile()) {
-        status = false;
-    }
-
-    return status;
+    return stat.isFile();
 }
 
 // Error handling
