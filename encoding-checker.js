@@ -7,7 +7,13 @@ var path = require('path');
 var exec = require('child_process').exec;
 
 var directory = '.';
-var encoding = 'utf-8';
+var encoding = '';
+
+var help = "Usage: ./encoding-checker.js [-d|--directory <directory>] [-e|--encoding <encoding>]\n\n" +
+    "List of arguments which you can use:\n" +
+    "   directory  Path to directory witch will be analyze. Default: \".\"\n" +
+    "   encoding   Name of encoding witch will be ignore in results list.\n" +
+    "   help       Show this message.";
 
 var args = process.argv.slice(2);
 
@@ -20,6 +26,11 @@ args.forEach(function (val, index) {
 
         case (val === '-e' || val === '--encoding'):
             encoding = args[index + 1];
+            break;
+
+        case (val === '-h' || val === '--help'):
+            console.log(help);
+            process.exit(2);
             break;
 
         default:
@@ -70,7 +81,7 @@ function walk(dir, done) {
 function parseCharset(stdout) {
     var result = null;
     var matchers = stdout.match(/charset=(.*)/);
-    if (matchers.length > 1) {
+    if (matchers && matchers.length > 1) {
         result = matchers[1];
     }
     return result;
@@ -85,17 +96,29 @@ function setWidth(string, width) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-walk(directory, function (err, results) {
+var command = 'find -f ' + directory + ' | xargs file -I';
+var options = {
+    maxBuffer: 10 * 1024 * 1024
+};
+
+exec(command, options, function (err, stdout) {
     if (err) throw err;
 
-    results.forEach(function (file) {
-        exec('file -I ' + file, function (err, stdout) {
-            if (err) throw err;
-            var charset = parseCharset(stdout);
+    var files = stdout.split('\n');
 
-            if (charset !== encoding) {
-                console.log(setWidth('[' + charset + ']'), file);
-            }
-        });
+    files.forEach(function (file) {
+        var filename = file.replace(/:(.*)/, '');
+        var stats = file.replace(/(.*):/, '');
+        var charset = parseCharset(stats);
+
+        // Ignore last empty line.
+        if (!filename) {
+            return;
+        }
+
+        // If charset is different than ignoring, prints them with file name.
+        if (charset !== encoding) {
+            console.log(setWidth('[' + charset + ']') + '"' + filename + '"');
+        }
     });
 });

@@ -21,11 +21,9 @@ or
 List of arguments with short description.
 
 ```
-directory   Path to directory witch will be analyze.
-            Default: .
-
+directory   Path to directory witch will be analyze. Default: .
 encoding    Name of encoding witch will be ignore in results list.
-            Default: utf-8
+help        Show this message.
 ```
 
 ## Example
@@ -35,19 +33,22 @@ Command run in current project on my device:
 ```
 piecioshka in ~/projects/encoding-checker on master λ ./encoding-checker.js
 
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/scopes/scope_settings.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/inspectionProfiles/profiles_settings.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/inspectionProfiles/Project_Default.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/workspace.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/vcs.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/modules.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/misc.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/encodings.xml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/encoding-checker.iml
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.idea/.name
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/encoding-checker.js
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/README.md
-[us-ascii]     /Users/piecioshka/projects/encoding-checker/.gitignore
+[us-ascii]    "./.gitignore"
+[binary]      "./.idea"
+[us-ascii]    "./.idea/.name"
+[us-ascii]    "./.idea/encoding-checker.iml"
+[us-ascii]    "./.idea/encodings.xml"
+[binary]      "./.idea/inspectionProfiles"
+[us-ascii]    "./.idea/inspectionProfiles/profiles_settings.xml"
+[us-ascii]    "./.idea/inspectionProfiles/Project_Default.xml"
+[us-ascii]    "./.idea/misc.xml"
+[us-ascii]    "./.idea/modules.xml"
+[binary]      "./.idea/scopes"
+[us-ascii]    "./.idea/scopes/scope_settings.xml"
+[us-ascii]    "./.idea/vcs.xml"
+[us-ascii]    "./.idea/workspace.xml"
+[us-ascii]    "./encoding-checker.js"
+[utf-8]       "./README.md"
 ```
 
 ## License
