@@ -30,4 +30,4 @@ encoding    Name of encoding witch will be ignore in results list.
 
 ## License
 
-(The MIT License)[http://piecioshka.mit-license.org]
+[The MIT License](http://piecioshka.mit-license.org)
