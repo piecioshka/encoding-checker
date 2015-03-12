@@ -92,8 +92,10 @@ walk(directory, function (err, results) {
         exec('file -I ' + file, function (err, stdout) {
             if (err) throw err;
             var charset = parseCharset(stdout);
-            var widthCharset = setWidth('[' + charset + ']');
-            console.log(widthCharset, file);
+
+            if (charset !== encoding) {
+                console.log(setWidth('[' + charset + ']'), file);
+            }
         });
     });
 });
