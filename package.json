@@ -1,7 +1,7 @@
 {
     "name": "encoding-checker",
     "description": "Tool to investigate files with different encoding than passed",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "author": {
         "name": "Piotr Kowalski",
@@ -18,9 +18,11 @@
         "type": "git",
         "url": "http://github.com/piecioshka/encoding-checker.git"
     },
-    "devDependencies": {
+    "dependencies": {
         "colors": "^1.1.2",
-        "commander": "^2.9.0",
+        "commander": "^2.9.0"
+    },
+    "devDependencies": {
         "coveralls": "^2.11.12",
         "istanbul": "^0.4.4",
         "jasmine": "^2.4.1"
