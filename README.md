@@ -7,9 +7,15 @@
 
 > :hammer: Tool to investigate files with different encoding than passed
 
+## Install
+
+```
+npm install -g encoding-checker
+```
+
 ## Usage
 
-```bash
+```
 $ encoding-checker --help
 
   Usage: index [options]
@@ -29,19 +35,16 @@ Command run in current project on my device:
 ```
 $ encoding-checker -d .
 
-[us-ascii]    "./.gitignore"
-[us-ascii]    "./.idea/.name"
-[us-ascii]    "./.idea/encoding-checker.iml"
-[us-ascii]    "./.idea/encodings.xml"
-[us-ascii]    "./.idea/inspectionProfiles/profiles_settings.xml"
-[us-ascii]    "./.idea/inspectionProfiles/Project_Default.xml"
-[us-ascii]    "./.idea/misc.xml"
-[us-ascii]    "./.idea/modules.xml"
-[us-ascii]    "./.idea/scopes/scope_settings.xml"
-[us-ascii]    "./.idea/vcs.xml"
-[us-ascii]    "./.idea/workspace.xml"
-[us-ascii]    "./encoding-checker.js"
-[utf-8]       "./README.md"
+[binary] ./.DS_Store
+[us-ascii] ./README.md
+[us-ascii] ./bin/index.js
+[us-ascii] ./index.js
+[us-ascii] ./package.json
+[us-ascii] ./src/index.js
+[us-ascii] ./test/unit/jasmine.json
+[us-ascii] ./test/unit/specs/test.index.js
+[us-ascii] ./wallaby.js
+[us-ascii] ./yarn.lock
 ```
 
 ## License
