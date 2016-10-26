@@ -1,0 +1,48 @@
+{
+    "name": "encoding-checker",
+    "description": "Tool to investigate files with different encoding than passed",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": {
+        "name": "Piotr Kowalski",
+        "email": "piecioshka@gmail.com",
+        "url": "https://piecioshka.pl/"
+    },
+    "scripts": {
+        "clear": "rm -rf node_modules/ npm-debug.log",
+        "test": "jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
+        "coverage": "istanbul cover jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
+        "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls -v"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/piecioshka/encoding-checker.git"
+    },
+    "devDependencies": {
+        "colors": "^1.1.2",
+        "commander": "^2.9.0",
+        "coveralls": "^2.11.12",
+        "istanbul": "^0.4.4",
+        "jasmine": "^2.4.1"
+    },
+    "files": [
+        "bin",
+        "src",
+        "index.js",
+        "package.json",
+        "README.md"
+    ],
+    "keywords": [
+        "super",
+        "event",
+        "emitter",
+        "mixin",
+        "on",
+        "off",
+        "emit",
+        "trigger",
+        "simple"
+    ],
+    "main": "./index.js",
+    "bin": "./bin/index.js"
+}

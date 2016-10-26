@@ -1,29 +1,20 @@
 # encoding-checker
 
-Simple tool to investigate files with different encoding than passed.
+> :hammer: Tool to investigate files with different encoding than passed
 
 ## Usage
 
-To use tool try run command in terminal:
-
 ```bash
-node encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]
-```
+$ encoding-checker --help
 
-or
+  Usage: index [options]
 
-```
-./encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]
-```
+  Options:
 
-## Arguments
-
-List of arguments with short description.
-
-```
--d | --directory <arg>   Path to directory witch will be analyze. Default: "."
--e | --encoding <arg>    Name of encoding witch will be ignore in results list.
--h | --help              Show this message.
+    -h, --help                 output usage information
+    -V, --version              output the version number
+    -d, --directory <d>        path to directory which will be analyze (default: ".")
+    -i, --ignore-encoding <e>  name of encoding which will be ignore in results list
 ```
 
 ## Example
@@ -31,7 +22,7 @@ List of arguments with short description.
 Command run in current project on my device:
 
 ```
-piecioshka in ~/projects/encoding-checker on master λ ./encoding-checker.js
+$ encoding-checker -d .
 
 [us-ascii]    "./.gitignore"
 [us-ascii]    "./.idea/.name"
@@ -50,4 +41,4 @@ piecioshka in ~/projects/encoding-checker on master λ ./encoding-checker.js
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org)
+[The MIT License](http://piecioshka.mit-license.org) @ 2015
