@@ -1,29 +1,31 @@
 # encoding-checker
 
-Simple tool to investigate files with different encoding than passed.
+[![npm version](https://badge.fury.io/js/encoding-checker.svg)](https://badge.fury.io/js/encoding-checker)
+![](https://img.shields.io/npm/dt/encoding-checker.svg)
+[![Travis](https://img.shields.io/travis/piecioshka/encoding-checker.svg?maxAge=2592000)](https://travis-ci.org/piecioshka/encoding-checker)
+[![Coverage Status](https://coveralls.io/repos/github/piecioshka/encoding-checker/badge.svg?branch=master)](https://coveralls.io/github/piecioshka/encoding-checker?branch=master)
+
+> :hammer: Tool to investigate files with different encoding than passed
+
+## Install
+
+```
+npm install -g encoding-checker
+```
 
 ## Usage
 
-To use tool try run command in terminal:
-
-```bash
-node encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]
 ```
+$ encoding-checker --help
 
-or
+  Usage: index [options]
 
-```
-./encoding-checker.js [-d|--directory <arg>] [-e|--encoding <arg>] [-h|--help]
-```
+  Options:
 
-## Arguments
-
-List of arguments with short description.
-
-```
--d | --directory <arg>   Path to directory witch will be analyze. Default: "."
--e | --encoding <arg>    Name of encoding witch will be ignore in results list.
--h | --help              Show this message.
+    -h, --help                 output usage information
+    -V, --version              output the version number
+    -d, --directory <d>        path to directory which will be analyze (default: ".")
+    -i, --ignore-encoding <e>  name of encoding which will be ignore in results list
 ```
 
 ## Example
@@ -31,23 +33,20 @@ List of arguments with short description.
 Command run in current project on my device:
 
 ```
-piecioshka in ~/projects/encoding-checker on master λ ./encoding-checker.js
+$ encoding-checker -d .
 
-[us-ascii]    "./.gitignore"
-[us-ascii]    "./.idea/.name"
-[us-ascii]    "./.idea/encoding-checker.iml"
-[us-ascii]    "./.idea/encodings.xml"
-[us-ascii]    "./.idea/inspectionProfiles/profiles_settings.xml"
-[us-ascii]    "./.idea/inspectionProfiles/Project_Default.xml"
-[us-ascii]    "./.idea/misc.xml"
-[us-ascii]    "./.idea/modules.xml"
-[us-ascii]    "./.idea/scopes/scope_settings.xml"
-[us-ascii]    "./.idea/vcs.xml"
-[us-ascii]    "./.idea/workspace.xml"
-[us-ascii]    "./encoding-checker.js"
-[utf-8]       "./README.md"
+[binary] ./.DS_Store
+[us-ascii] ./README.md
+[us-ascii] ./bin/index.js
+[us-ascii] ./index.js
+[us-ascii] ./package.json
+[us-ascii] ./src/index.js
+[us-ascii] ./test/unit/jasmine.json
+[us-ascii] ./test/unit/specs/test.index.js
+[us-ascii] ./wallaby.js
+[us-ascii] ./yarn.lock
 ```
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org)
+[The MIT License](http://piecioshka.mit-license.org) @ 2015
