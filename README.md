@@ -1,5 +1,10 @@
 # encoding-checker
 
+[![npm version](https://badge.fury.io/js/encoding-checker.svg)](https://badge.fury.io/js/encoding-checker)
+![](https://img.shields.io/npm/dt/encoding-checker.svg)
+[![Travis](https://img.shields.io/travis/piecioshka/encoding-checker.svg?maxAge=2592000)](https://travis-ci.org/piecioshka/encoding-checker)
+[![Coverage Status](https://coveralls.io/repos/github/piecioshka/encoding-checker/badge.svg?branch=master)](https://coveralls.io/github/piecioshka/encoding-checker?branch=master)
+
 > :hammer: Tool to investigate files with different encoding than passed
 
 ## Usage
