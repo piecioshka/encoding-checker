@@ -10,7 +10,7 @@
 ## Install
 
 ```
-npm install -g encoding-checker
+$ npm install -g encoding-checker
 ```
 
 ## Usage
