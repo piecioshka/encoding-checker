@@ -1,7 +1,7 @@
 {
     "name": "encoding-checker",
     "description": "Tool to investigate files with different encoding than passed",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "author": {
         "name": "Piotr Kowalski",
@@ -45,6 +45,7 @@
         "trigger",
         "simple"
     ],
+    "preferGlobal": true,
     "main": "./index.js",
     "bin": "./bin/index.js"
 }
