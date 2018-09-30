@@ -28,7 +28,7 @@
         "jasmine": "^3.2.0"
     },
     "files": [
-        "bin",
+        ".bin",
         "src",
         "index.js",
         "package.json",
