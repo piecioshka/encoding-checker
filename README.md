@@ -1,9 +1,10 @@
 # encoding-checker
 
 [![npm version](https://badge.fury.io/js/encoding-checker.svg)](https://badge.fury.io/js/encoding-checker)
-![](https://img.shields.io/npm/dt/encoding-checker.svg)
-[![Travis](https://img.shields.io/travis/piecioshka/encoding-checker.svg?maxAge=2592000)](https://travis-ci.org/piecioshka/encoding-checker)
-[![Coverage Status](https://coveralls.io/repos/github/piecioshka/encoding-checker/badge.svg?branch=master)](https://coveralls.io/github/piecioshka/encoding-checker?branch=master)
+[![downloads count](https://img.shields.io/npm/dt/encoding-checker.svg)](https://www.npmjs.com/~piecioshka)
+[![travis](https://img.shields.io/travis/piecioshka/encoding-checker.svg?maxAge=2592000)](https://travis-ci.org/piecioshka/encoding-checker)
+[![dependencies](https://david-dm.org/piecioshka/encoding-checker.svg)](https://github.com/piecioshka/encoding-checker)
+[![coveralls](https://coveralls.io/repos/github/piecioshka/encoding-checker/badge.svg?branch=master)](https://coveralls.io/github/piecioshka/encoding-checker?branch=master)
 
 :hammer: Tool to investigate files with different encoding than passed
 
@@ -28,16 +29,18 @@ encoding-checker --help
     -i, --ignore-encoding <e>  name of encoding which will be ignore in results list
 ```
 
-## Example
+## Examples
 
-Command run in current project on my device:
+List of popular examples.
+
+### Use case: All files in current directory
 
 ```text
 encoding-checker -d .
 
 [binary] ./.DS_Store
 [us-ascii] ./README.md
-[us-ascii] ./bin/index.js
+[us-ascii] ./.bin/index.js
 [us-ascii] ./index.js
 [us-ascii] ./package.json
 [us-ascii] ./src/index.js
@@ -45,6 +48,12 @@ encoding-checker -d .
 [us-ascii] ./test/unit/specs/test.index.js
 [us-ascii] ./wallaby.js
 [us-ascii] ./yarn.lock
+```
+
+### Use case: All *.csv files in current directory
+
+```text
+encoding-checker -d "*.csv"
 ```
 
 ## License

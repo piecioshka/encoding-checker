@@ -9,7 +9,7 @@
         "url": "https://piecioshka.pl/"
     },
     "scripts": {
-        "clear": "rm -rf node_modules/ npm-debug.log",
+        "clear": "rm -rf node_modules/",
         "test": "jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
         "coverage": "istanbul cover jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
         "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls -v"
@@ -35,17 +35,15 @@
         "README.md"
     ],
     "keywords": [
-        "super",
-        "event",
-        "emitter",
-        "mixin",
-        "on",
-        "off",
-        "emit",
-        "trigger",
+        "encoding",
+        "checker",
+        "file",
+        "system",
+        "utf8",
+        "utf-8",
         "simple"
     ],
     "preferGlobal": true,
     "main": "./index.js",
-    "bin": "./bin/index.js"
+    "bin": "./.bin/index.js"
 }

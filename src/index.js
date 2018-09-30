@@ -23,6 +23,7 @@ function printFileRecord(encoding, filename) {
 
 function verifyCharsetSingleFile(encoding, file) {
     var filename = file.replace(/:(.*)/, '');
+
     var charset = parseCharset(file);
 
     if (!filename) {
@@ -38,7 +39,7 @@ function verifyCharsetSingleFile(encoding, file) {
     }
 }
 
-function verifyCharsetOfFileList(encoding, files) {
+function verifyCharsetFileList(encoding, files) {
     var handler = verifyCharsetSingleFile.bind(this, encoding);
     files.forEach(handler);
 }
@@ -48,5 +49,5 @@ module.exports = {
     isFile: isFile,
     printFileRecord: printFileRecord,
     verifyCharsetSingleFile: verifyCharsetSingleFile,
-    verifyCharsetOfFileList: verifyCharsetOfFileList
+    verifyCharsetFileList: verifyCharsetFileList
 };

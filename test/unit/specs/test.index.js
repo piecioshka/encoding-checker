@@ -13,7 +13,7 @@ describe('General', function () {
     it('should have 3 methods', function () {
         expect(EncodingChecker.isFile).toEqual(jasmine.any(Function));
         expect(EncodingChecker.parseCharset).toEqual(jasmine.any(Function));
-        expect(EncodingChecker.verifyCharsetOfFileList).toEqual(jasmine.any(Function));
+        expect(EncodingChecker.verifyCharsetFileList).toEqual(jasmine.any(Function));
     });
 
     describe('method: parseCharset', function () {
@@ -58,10 +58,10 @@ describe('General', function () {
         });
     });
 
-    describe('method: verifyCharsetOfFileList', function () {
+    describe('method: verifyCharsetFileList', function () {
         it('should fail when put not valid params', function () {
             console.log = noop;
-            expect(EncodingChecker.verifyCharsetOfFileList('utf-8', ['.'])).toEqual(undefined);
+            expect(EncodingChecker.verifyCharsetFileList('utf-8', ['.'])).toEqual(undefined);
         });
     });
 });

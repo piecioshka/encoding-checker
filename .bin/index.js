@@ -32,17 +32,11 @@ function parseEncoding(passedEncoding) {
     encoding = passedEncoding;
 }
 
-function protectNonDirectory(path) {
-    var stat = fs.lstatSync(path);
-    if (!stat.isDirectory()) {
-        throw new Error('Error: ' + path + ' is not a directory');
-    }
-}
-
 function setup() {
-    protectNonDirectory(directory);
+    var command = 'find -f ' + directory + ' | xargs -I "{}" file "{}"';
 
-    var command = 'find -f ' + directory + ' | xargs file -I';
+    console.log('COMMAND: ' + command.red + '\n');
+
     var options = {
         maxBuffer: 10 * 1024 * 1024
     };
@@ -50,7 +44,7 @@ function setup() {
     exec(command, options, function (err, stdout) {
         if (err) throw err;
         var files = stdout.split('\n');
-        EncodingChecker.verifyCharsetOfFileList(encoding, files);
+        EncodingChecker.verifyCharsetFileList(encoding, files);
     });
 }
 
