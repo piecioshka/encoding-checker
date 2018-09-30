@@ -33,7 +33,7 @@ encoding-checker --help
 
 List of popular examples.
 
-### Use case: All files in current directory
+### :arrow_right: Use case: All files in current directory
 
 ```text
 encoding-checker -d .
@@ -50,7 +50,7 @@ encoding-checker -d .
 [us-ascii] ./yarn.lock
 ```
 
-### Use case: All *.csv files in current directory
+### :arrow_right: Use case: All *.csv files in current directory
 
 ```text
 encoding-checker -d "*.csv"
