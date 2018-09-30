@@ -5,18 +5,18 @@
 [![Travis](https://img.shields.io/travis/piecioshka/encoding-checker.svg?maxAge=2592000)](https://travis-ci.org/piecioshka/encoding-checker)
 [![Coverage Status](https://coveralls.io/repos/github/piecioshka/encoding-checker/badge.svg?branch=master)](https://coveralls.io/github/piecioshka/encoding-checker?branch=master)
 
-> :hammer: Tool to investigate files with different encoding than passed
+:hammer: Tool to investigate files with different encoding than passed
 
 ## Install
 
-```
-$ npm install -g encoding-checker
+```bash
+npm install -g encoding-checker
 ```
 
 ## Usage
 
-```
-$ encoding-checker --help
+```text
+encoding-checker --help
 
   Usage: index [options]
 
@@ -32,8 +32,8 @@ $ encoding-checker --help
 
 Command run in current project on my device:
 
-```
-$ encoding-checker -d .
+```text
+encoding-checker -d .
 
 [binary] ./.DS_Store
 [us-ascii] ./README.md
