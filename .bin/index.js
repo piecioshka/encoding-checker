@@ -2,50 +2,43 @@
 
 'use strict';
 
-var program = require('commander');
-var colors = require('colors');
-var VERSION = require('../package.json').version;
-var EncodingChecker = require('../src/index');
+require('colors');
 
-var directory = '.';
-var encoding = '';
+const yargs = require('yargs');
+const glob = require('glob');
+const EncodingChecker = require('../src/index');
 
-program
-    .version(VERSION)
-    .option('-d, --directory <d>', 'path to directory which will be analyze (default: ".")', parseDirectory)
-    .option('-i, --ignore-encoding <e>', 'name of encoding which will be ignore in results list', parseEncoding)
-    .parse(process.argv);
+yargs.usage('Usage: $0 [-p pattern] [-i encoding] [-v]');
 
-if (!process.argv.slice(2).length) {
-    program.outputHelp(colors.red);
-    process.exit(1);
-}
+yargs.option('pattern', {
+    alias: ['p', 'd'],
+    default: '*'
+});
 
-var fs = require('fs');
-var exec = require('child_process').exec;
+yargs.option('ignore-encoding', {
+    alias: 'i',
+    default: ''
+});
 
-function parseDirectory(passedDirectory) {
-    directory = passedDirectory;
-}
+yargs.option('verbose', {
+    alias: 'v',
+    default: false
+});
 
-function parseEncoding(passedEncoding) {
-    encoding = passedEncoding;
-}
+const argv = yargs.argv;
 
-function setup() {
-    var command = 'find -f ' + directory + ' | xargs -I "{}" file "{}"';
+const options = {
+    absolute: true,
+    nodir: true,
+    dot: true
+};
 
-    console.log('COMMAND: ' + command.red + '\n');
+glob(argv.pattern, options, function (err, files) {
+    if (err) throw err;
 
-    var options = {
-        maxBuffer: 10 * 1024 * 1024
-    };
+    if (argv.verbose) {
+        console.log(`Found items: ${files.length}`.gray);
+    }
 
-    exec(command, options, function (err, stdout) {
-        if (err) throw err;
-        var files = stdout.split('\n');
-        EncodingChecker.verifyCharsetFileList(encoding, files);
-    });
-}
-
-setup();
+    EncodingChecker.verifyCharsetFileList(argv['ignore-encoding'], files);
+});

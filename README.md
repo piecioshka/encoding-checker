@@ -17,45 +17,65 @@ npm install -g encoding-checker
 ## Usage
 
 ```text
-encoding-checker --help
+Usage: encoding-checker [-p pattern] [-i encoding] [-v]
 
-  Usage: index [options]
-
-  Options:
-
-    -h, --help                 output usage information
-    -V, --version              output the version number
-    -d, --directory <d>        path to directory which will be analyze (default: ".")
-    -i, --ignore-encoding <e>  name of encoding which will be ignore in results list
+Options:
+  --help                 Show help                                     [boolean]
+  --version              Show version number                           [boolean]
+  --pattern, -p, -d                                               [default: "*"]
+  --ignore-encoding, -i                                            [default: ""]
+  --verbose, -v                                                 [default: false]
 ```
 
 ## Examples
 
 List of popular examples.
 
-### :arrow_right: Use case: All files in current directory
+### :arrow_right: Use case: `All files in current directory`
 
-```text
-encoding-checker -d .
-
-[binary] ./.DS_Store
-[us-ascii] ./README.md
-[us-ascii] ./.bin/index.js
-[us-ascii] ./index.js
-[us-ascii] ./package.json
-[us-ascii] ./src/index.js
-[us-ascii] ./test/unit/jasmine.json
-[us-ascii] ./test/unit/specs/test.index.js
-[us-ascii] ./wallaby.js
-[us-ascii] ./yarn.lock
+```bash
+encoding-checker
 ```
 
-### :arrow_right: Use case: All *.csv files in current directory
-
 ```text
-encoding-checker -d "*.csv"
+[ASCII text] .gitignore
+[ASCII text] .travis.yml
+[ASCII text] index.js
+[ASCII text] package-lock.json
+[ASCII text] package.json
+[ASCII text] README.md
+[ASCII text] wallaby.js
 ```
+
+### :arrow_right: Use case: `All *.csv files in current directory`
+
+```bash
+encoding-checker -p "*.md"
+```
+
+### :arrow_right: Use case: `Ignore all ASCII text files`
+
+```bash
+encoding-checker -i "ASCII text"
+```
+
+### :arrow_right: Use case: `Display number of results`
+
+```bash
+encoding-checker -v
+```
+
+## Supported Operating Systems
+
+* Linux
+* macOS
+
+## How run tool on Windows?
+
+1. Open <http://gnuwin32.sourceforge.net/packages/file.htm>
+2. Install `file.exe` (copy to any directory from PATH)
+3. Re-run `encoding-checker`
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org) @ 2015
+[The MIT License](http://piecioshka.mit-license.org) @ 2015-2018

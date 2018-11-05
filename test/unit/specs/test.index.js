@@ -1,67 +1,97 @@
 'use strict';
 
-var EncodingChecker = require('../../../src/index');
-var noop = function () {
-    // do nothing...
-};
+const EncodingChecker = require('../../../src/index');
+
+const parseCharset = EncodingChecker._test_parseCharset;
+const fetchCharset = EncodingChecker._test_fetchCharset;
+const printFileRecord = EncodingChecker._test_printFileRecord;
+const verifyCharsetSingleFile = EncodingChecker._test_verifyCharsetSingleFile;
+const verifyCharsetFileList = EncodingChecker.verifyCharsetFileList;
 
 describe('General', function () {
+    beforeAll(() => {
+        global.console.log = () => { };
+        global.console.error = () => { };
+    });
+
     it('should be defined', function () {
         expect(EncodingChecker).toBeDefined();
     });
 
-    it('should have 3 methods', function () {
-        expect(EncodingChecker.isFile).toEqual(jasmine.any(Function));
-        expect(EncodingChecker.parseCharset).toEqual(jasmine.any(Function));
-        expect(EncodingChecker.verifyCharsetFileList).toEqual(jasmine.any(Function));
+    it('should have some methods', function () {
+        [
+            parseCharset,
+            fetchCharset,
+            printFileRecord,
+            verifyCharsetSingleFile,
+            verifyCharsetFileList
+        ].forEach((method) => {
+            expect(method).toEqual(jasmine.any(Function));
+        });
     });
 
     describe('method: parseCharset', function () {
         it('should returns null when passed empty string', function () {
-            expect(EncodingChecker.parseCharset('')).toEqual('');
+            expect(parseCharset('')).toEqual('');
         });
         it('should returns correct charset', function () {
-            expect(EncodingChecker.parseCharset('BLAH; charset=utf-8; BLAH')).toEqual('utf-8');
+            expect(parseCharset('BLAH; charset=utf-8; BLAH')).toEqual('utf-8');
         });
     });
 
-    describe('method: isFile', function () {
-        it('should returns true on real files', function () {
-            expect(EncodingChecker.isFile('./package.json')).toBeTruthy();
-        });
-
-        it('should returns false on directories', function () {
-            expect(EncodingChecker.isFile('./')).toBeFalsy();
-        });
-
-        it('should throws an error on mystic files', function () {
-            expect(function () {
-                EncodingChecker.isFile('./my-mystic-file.txt')
-            }).toThrow();
+    describe('method: fetchCharset', function () {
+        it('should returns error message when "file" is not defined', function (done) {
+            return fetchCharset('')
+                .catch((result) => {
+                    expect(result).toMatch('Error');
+                    done();
+                });
         });
     });
 
     describe('method: printFileRecord', function () {
         it('should be a procedure (nothing return)', function () {
-            console.log = noop;
-            expect(EncodingChecker.printFileRecord('')).toEqual(undefined);
+            console.log = jasmine.createSpy();
+            printFileRecord('', '');
+            expect(console.log).toHaveBeenCalled();
         });
     });
 
     describe('method: verifyCharsetSingleFile', function () {
-        it('should fail when put not valid params', function () {
-            console.log = noop;
-            expect(EncodingChecker.verifyCharsetSingleFile('', '')).toEqual(undefined);
-            expect(EncodingChecker.verifyCharsetSingleFile('utf-8', '')).toEqual(undefined);
-            expect(EncodingChecker.verifyCharsetSingleFile('utf-8', './package.json')).toEqual(undefined);
-            expect(EncodingChecker.verifyCharsetSingleFile('utf-8', '.')).toEqual(undefined);
+        it('should return undefined when put not valid params', function () {
+            return Promise.all([
+                verifyCharsetSingleFile('utf-8', './package.json')
+                    .then((result) => {
+                        expect(result).toEqual(undefined);
+                    }),
+                verifyCharsetSingleFile('utf-8', '.')
+                    .then((result) => {
+                        expect(result).toEqual(undefined);
+                    })
+            ]);
+        });
+
+        it('should breaks', function (done) {
+            const child_process = require('child_process');
+            const cache = child_process.exec;
+            child_process.exec = (_, cb) => cb(new Error('Command not found'));
+
+            verifyCharsetSingleFile('utf-8', './not-exist-file')
+                .then((err) => {
+                    expect(err.__proto__.constructor).toEqual(Error);
+                    child_process.exec = cache;
+                    done();
+                });
         });
     });
 
     describe('method: verifyCharsetFileList', function () {
         it('should fail when put not valid params', function () {
-            console.log = noop;
-            expect(EncodingChecker.verifyCharsetFileList('utf-8', ['.'])).toEqual(undefined);
+            return verifyCharsetFileList('utf-8', ['.'])
+                .then((result) => {
+                    expect(result).toEqual(jasmine.any(Array));
+                    expect(result.length).toEqual(0);
+                })
         });
     });
 });

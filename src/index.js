@@ -1,53 +1,60 @@
 'use strict';
 
-var fs = require('fs');
-var MATCH_CHARSET_REGEXP = /charset=([\w\d\-/]*)/;
+require('colors');
 
-function parseCharset(file) {
-    var stdout = file.replace(/(.*):/, '').trim();
-    var matched = stdout.match(MATCH_CHARSET_REGEXP);
+const MATCH_CHARSET_REGEXP = /charset=([\w\d\-/]*)/;
+
+const sequence = require('sequence-as-promise');
+const child_process = require('child_process');
+
+function parseCharset(info) {
+    const charset = info.replace(/(.*):/, '').trim();
+    const matched = charset.match(MATCH_CHARSET_REGEXP);
+
     if (matched && matched.length > 1) {
         return matched[1];
     }
-    return stdout;
+
+    return charset;
 }
 
-function isFile(path) {
-    var stat = fs.lstatSync(path);
-    return stat.isFile();
+function fetchCharset(file) {
+    return new Promise((resolve, reject) => {
+        child_process.exec(`file ${file}`, (error, stdout) => {
+            if (error) {
+                return reject(error);
+            }
+
+            resolve(parseCharset(stdout));
+        });
+    })
 }
 
 function printFileRecord(encoding, filename) {
-    console.log('[%s] %s', encoding, filename);
+    console.log('[%s] %s', encoding, filename && filename.blue);
 }
 
 function verifyCharsetSingleFile(encoding, file) {
-    var filename = file.replace(/:(.*)/, '');
-
-    var charset = parseCharset(file);
-
-    if (!filename) {
-        return;
-    }
-
-    if (!isFile(filename)) {
-        return;
-    }
-
-    if (charset !== encoding) {
-        printFileRecord(charset, filename);
-    }
+    return fetchCharset(file)
+        .then((charset) => {
+            if (charset && charset !== encoding) {
+                printFileRecord(charset, file);
+            }
+        })
+        .catch((err) => {
+            console.error(err.message.red);
+            return err;
+        });
 }
 
 function verifyCharsetFileList(encoding, files) {
-    var handler = verifyCharsetSingleFile.bind(this, encoding);
-    files.forEach(handler);
+    return sequence(files.map((file) => () => verifyCharsetSingleFile(encoding, file)));
 }
 
 module.exports = {
-    parseCharset: parseCharset,
-    isFile: isFile,
-    printFileRecord: printFileRecord,
-    verifyCharsetSingleFile: verifyCharsetSingleFile,
+    _test_parseCharset: parseCharset,
+    _test_fetchCharset: fetchCharset,
+    _test_printFileRecord: printFileRecord,
+    _test_verifyCharsetSingleFile: verifyCharsetSingleFile,
     verifyCharsetFileList: verifyCharsetFileList
 };
