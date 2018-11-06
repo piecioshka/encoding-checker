@@ -29,15 +29,11 @@ Options:
 
 ## Examples
 
-List of popular examples.
-
 ### :arrow_right: Use case: `All files in current directory`
 
 ```bash
-encoding-checker
-```
+> encoding-checker
 
-```text
 [ascii] .gitignore
 [ascii] .travis.yml
 [ascii] index.js
@@ -47,7 +43,7 @@ encoding-checker
 [ascii] wallaby.js
 ```
 
-### :arrow_right: Use case: `All *.csv files in current directory`
+### :arrow_right: Use case: `All *.md files in current directory`
 
 ```bash
 encoding-checker -p "*.md"
@@ -65,11 +61,11 @@ encoding-checker -i "ascii"
 encoding-checker -v
 ```
 
-## Supported Operating Systems
+## Supported Operating Systems (tested via Travis)
 
 * Linux
 * macOS
-* Windows
+* Microsoft Windows
 
 ## License
 
