@@ -1,53 +1,45 @@
 'use strict';
 
-var fs = require('fs');
-var MATCH_CHARSET_REGEXP = /charset=([\w\d\-/]*)/;
+const sequence = require('sequence-as-promise');
+const jschardet = require('jschardet');
+const fs = require('fs');
 
-function parseCharset(file) {
-    var stdout = file.replace(/(.*):/, '').trim();
-    var matched = stdout.match(MATCH_CHARSET_REGEXP);
-    if (matched && matched.length > 1) {
-        return matched[1];
-    }
-    return stdout;
+function fetchCharset(file) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, (err, data) => {
+            if (err) {
+                return reject(err);
+            }
+
+            const result = jschardet.detect(data);
+
+            resolve({
+                file: file,
+                encoding: result.encoding.toLowerCase()
+            });
+        });
+    });
 }
 
 function isFile(path) {
-    var stat = fs.lstatSync(path);
-    return stat.isFile();
+    return fs.lstatSync(path).isFile();
 }
 
-function printFileRecord(encoding, filename) {
-    console.log('[%s] %s', encoding, filename);
-}
-
-function verifyCharsetSingleFile(encoding, file) {
-    var filename = file.replace(/:(.*)/, '');
-
-    var charset = parseCharset(file);
-
-    if (!filename) {
-        return;
-    }
-
-    if (!isFile(filename)) {
-        return;
-    }
-
-    if (charset !== encoding) {
-        printFileRecord(charset, filename);
-    }
-}
-
-function verifyCharsetFileList(encoding, files) {
-    var handler = verifyCharsetSingleFile.bind(this, encoding);
-    files.forEach(handler);
+function verifyCharsetFileList(ignoreEncoding, matches, iteratee = (args) => args) {
+    const files = matches.filter(isFile);
+    return sequence(files.map((file) => () => fetchCharset(file)
+        .then((charset) => {
+            if (ignoreEncoding === charset.encoding) return;
+            return iteratee(charset);
+        })
+    ))
+        .catch((err) => {
+            const error = err || new Error('Unexpected error');
+            console.error(error.message.red);
+            return err;
+        });
 }
 
 module.exports = {
-    parseCharset: parseCharset,
-    isFile: isFile,
-    printFileRecord: printFileRecord,
-    verifyCharsetSingleFile: verifyCharsetSingleFile,
-    verifyCharsetFileList: verifyCharsetFileList
+    verify: verifyCharsetFileList
 };

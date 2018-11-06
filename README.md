@@ -17,45 +17,60 @@ npm install -g encoding-checker
 ## Usage
 
 ```text
-encoding-checker --help
+Usage: encoding-checker [-p pattern] [-i encoding] [-v]
 
-  Usage: index [options]
-
-  Options:
-
-    -h, --help                 output usage information
-    -V, --version              output the version number
-    -d, --directory <d>        path to directory which will be analyze (default: ".")
-    -i, --ignore-encoding <e>  name of encoding which will be ignore in results list
+Options:
+  --help                 Show help                                     [boolean]
+  --version              Show version number                           [boolean]
+  --pattern, -p, -d                                               [default: "*"]
+  --ignore-encoding, -i                                            [default: ""]
+  --verbose, -v                                                 [default: false]
 ```
 
 ## Examples
 
 List of popular examples.
 
-### :arrow_right: Use case: All files in current directory
+### :arrow_right: Use case: `All files in current directory`
 
-```text
-encoding-checker -d .
-
-[binary] ./.DS_Store
-[us-ascii] ./README.md
-[us-ascii] ./.bin/index.js
-[us-ascii] ./index.js
-[us-ascii] ./package.json
-[us-ascii] ./src/index.js
-[us-ascii] ./test/unit/jasmine.json
-[us-ascii] ./test/unit/specs/test.index.js
-[us-ascii] ./wallaby.js
-[us-ascii] ./yarn.lock
+```bash
+encoding-checker
 ```
 
-### :arrow_right: Use case: All *.csv files in current directory
-
 ```text
-encoding-checker -d "*.csv"
+[ascii] .gitignore
+[ascii] .travis.yml
+[ascii] index.js
+[ascii] package-lock.json
+[ascii] package.json
+[ascii] README.md
+[ascii] wallaby.js
 ```
+
+### :arrow_right: Use case: `All *.csv files in current directory`
+
+```bash
+encoding-checker -p "*.md"
+```
+
+### :arrow_right: Use case: `Ignore all files with encoding "ascii"`
+
+```bash
+encoding-checker -i "ascii"
+```
+
+### :arrow_right: Use case: `Append number of results`
+
+```bash
+encoding-checker -v
+```
+
+## Supported Operating Systems
+
+* Linux
+* macOS
+* Windows
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org) @ 2015
+[The MIT License](http://piecioshka.mit-license.org) @ 2015-2018

@@ -9,7 +9,8 @@
         "url": "https://piecioshka.pl/"
     },
     "scripts": {
-        "clear": "rm -rf node_modules/",
+        "clear": "rm -rf coverage/",
+        "clear:all": "npm run clear && rm -rf node_modules/",
         "test": "jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
         "coverage": "istanbul cover jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
         "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls -v"
@@ -20,7 +21,10 @@
     },
     "dependencies": {
         "colors": "^1.1.2",
-        "commander": "^2.9.0"
+        "glob-promise": "^3.4.0",
+        "jschardet": "^1.6.0",
+        "sequence-as-promise": "^1.2.0",
+        "yargs": "^12.0.2"
     },
     "devDependencies": {
         "coveralls": "^3.0.2",
@@ -39,9 +43,11 @@
         "checker",
         "file",
         "system",
-        "utf8",
-        "utf-8",
-        "simple"
+        "ascii",
+        "text",
+        "read",
+        "get",
+        "utf-8"
     ],
     "preferGlobal": true,
     "main": "./index.js",
