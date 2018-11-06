@@ -5,7 +5,7 @@
 require('colors');
 
 const yargs = require('yargs');
-const glob = require('glob');
+const glob = require('glob-promise');
 const EncodingChecker = require('../src/index');
 
 yargs.usage('Usage: $0 [-p pattern] [-i encoding] [-v]');
@@ -33,12 +33,16 @@ const options = {
     dot: true
 };
 
-glob(argv.pattern, options, function (err, files) {
-    if (err) throw err;
+glob(argv.pattern, options)
+    .then((files) => {
+        if (argv.verbose) {
+            console.log(`Found items: ${files.length}`.gray);
+        }
 
-    if (argv.verbose) {
-        console.log(`Found items: ${files.length}`.gray);
-    }
-
-    EncodingChecker.verifyCharsetFileList(argv['ignore-encoding'], files);
-});
+        EncodingChecker.verify(argv['ignore-encoding'], files, ({ encoding, file }) => {
+            console.log('[%s] %s', encoding, file && file.blue);
+        });
+    })
+    .catch((err) => {
+        console.error(err);
+    });

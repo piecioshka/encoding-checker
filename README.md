@@ -38,13 +38,13 @@ encoding-checker
 ```
 
 ```text
-[ASCII text] .gitignore
-[ASCII text] .travis.yml
-[ASCII text] index.js
-[ASCII text] package-lock.json
-[ASCII text] package.json
-[ASCII text] README.md
-[ASCII text] wallaby.js
+[ascii] .gitignore
+[ascii] .travis.yml
+[ascii] index.js
+[ascii] package-lock.json
+[ascii] package.json
+[ascii] README.md
+[ascii] wallaby.js
 ```
 
 ### :arrow_right: Use case: `All *.csv files in current directory`
@@ -53,13 +53,13 @@ encoding-checker
 encoding-checker -p "*.md"
 ```
 
-### :arrow_right: Use case: `Ignore all ASCII text files`
+### :arrow_right: Use case: `Ignore all files with encoding "ascii"`
 
 ```bash
-encoding-checker -i "ASCII text"
+encoding-checker -i "ascii"
 ```
 
-### :arrow_right: Use case: `Display number of results`
+### :arrow_right: Use case: `Append number of results`
 
 ```bash
 encoding-checker -v
@@ -69,12 +69,7 @@ encoding-checker -v
 
 * Linux
 * macOS
-
-## How run tool on Windows?
-
-1. Open <http://gnuwin32.sourceforge.net/packages/file.htm>
-2. Install `file.exe` (copy to any directory from PATH)
-3. Re-run `encoding-checker`
+* Windows
 
 ## License
 

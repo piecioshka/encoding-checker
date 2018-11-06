@@ -1,60 +1,45 @@
 'use strict';
 
-require('colors');
-
-const MATCH_CHARSET_REGEXP = /charset=([\w\d\-/]*)/;
-
 const sequence = require('sequence-as-promise');
-const child_process = require('child_process');
-
-function parseCharset(info) {
-    const charset = info.replace(/(.*):/, '').trim();
-    const matched = charset.match(MATCH_CHARSET_REGEXP);
-
-    if (matched && matched.length > 1) {
-        return matched[1];
-    }
-
-    return charset;
-}
+const jschardet = require('jschardet');
+const fs = require('fs');
 
 function fetchCharset(file) {
     return new Promise((resolve, reject) => {
-        child_process.exec(`file ${file}`, (error, stdout) => {
-            if (error) {
-                return reject(error);
+        fs.readFile(file, (err, data) => {
+            if (err) {
+                return reject(err);
             }
 
-            resolve(parseCharset(stdout));
+            const result = jschardet.detect(data);
+
+            resolve({
+                file: file,
+                encoding: result.encoding.toLowerCase()
+            });
         });
-    })
+    });
 }
 
-function printFileRecord(encoding, filename) {
-    console.log('[%s] %s', encoding, filename && filename.blue);
+function isFile(path) {
+    return fs.lstatSync(path).isFile();
 }
 
-function verifyCharsetSingleFile(encoding, file) {
-    return fetchCharset(file)
+function verifyCharsetFileList(ignoreEncoding, matches, iteratee = (args) => args) {
+    const files = matches.filter(isFile);
+    return sequence(files.map((file) => () => fetchCharset(file)
         .then((charset) => {
-            if (charset && charset !== encoding) {
-                printFileRecord(charset, file);
-            }
+            if (ignoreEncoding === charset.encoding) return;
+            return iteratee(charset);
         })
+    ))
         .catch((err) => {
-            console.error(err.message.red);
+            const error = err || new Error('Unexpected error');
+            console.error(error.message.red);
             return err;
         });
 }
 
-function verifyCharsetFileList(encoding, files) {
-    return sequence(files.map((file) => () => verifyCharsetSingleFile(encoding, file)));
-}
-
 module.exports = {
-    _test_parseCharset: parseCharset,
-    _test_fetchCharset: fetchCharset,
-    _test_printFileRecord: printFileRecord,
-    _test_verifyCharsetSingleFile: verifyCharsetSingleFile,
-    verifyCharsetFileList: verifyCharsetFileList
+    verify: verifyCharsetFileList
 };
