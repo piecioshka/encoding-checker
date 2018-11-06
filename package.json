@@ -9,7 +9,8 @@
         "url": "https://piecioshka.pl/"
     },
     "scripts": {
-        "clear": "rm -rf node_modules/",
+        "clear": "rm -rf coverage/",
+        "clear:all": "npm run clear && rm -rf node_modules/",
         "test": "jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
         "coverage": "istanbul cover jasmine JASMINE_CONFIG_PATH=test/unit/jasmine.json",
         "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls -v"

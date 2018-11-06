@@ -16,10 +16,6 @@ describe('General', () => {
 
     it('should works with many files', () => {
         return glob('*')
-            .then((files) => {
-                expect(files.length).toEqual(9);
-                return files;
-            })
             .then((files) => verify('utf-8', files))
             .then((result) => {
                 expect(result).toEqual(jasmine.any(Array));
