@@ -37,7 +37,7 @@ function verifyCharsetFileList(ignoreEncoding, matches, iteratee = (args) => arg
         })
     ))
         .catch((err) => {
-            const error = err || new Error('Unexpected error');
+            const error = new Error(err || 'Unexpected error');
             const message = error.message;
             console.error(message.red);
             return err;
