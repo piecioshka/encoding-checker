@@ -5,10 +5,12 @@ const jschardet = require('jschardet');
 const fs = require('fs');
 
 function fetchCharset(file) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(file, (err, data) => {
-            if (err) {
-                return reject(err);
+    return new Promise((resolve) => {
+        fs.readFile(file, (error, data) => {
+            if (error) {
+                return resolve({
+                    error: error
+                });
             }
 
             const result = jschardet.detect(data);
@@ -35,13 +37,7 @@ function verifyCharsetFileList(ignoreEncoding, matches, iteratee = (args) => arg
             if (ignoreEncoding === charset.encoding) return;
             return iteratee(charset);
         })
-    ))
-        .catch((err) => {
-            const error = new Error(err || 'Unexpected error');
-            const message = error.message;
-            console.error(message.red);
-            return err;
-        });
+    ));
 }
 
 module.exports = {

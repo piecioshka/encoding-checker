@@ -39,7 +39,12 @@ glob(argv.pattern, options)
             console.log(`Found items: ${files.length}`.gray);
         }
 
-        EncodingChecker.verify(argv['ignore-encoding'], files, ({ encoding, file }) => {
+        EncodingChecker.verify(argv['ignore-encoding'], files, ({ encoding, file, error }) => {
+            if (error) {
+                const message = error.message || 'unexpected error';
+                console.error(message.red);
+                return;
+            }
             console.log('[%s] %s', encoding, file && file.blue);
         });
     })
