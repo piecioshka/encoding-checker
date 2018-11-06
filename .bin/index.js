@@ -44,5 +44,6 @@ glob(argv.pattern, options)
         });
     })
     .catch((err) => {
-        console.error(err);
+        const message = err.message;
+        console.error(message.red);
     });

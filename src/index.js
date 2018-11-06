@@ -12,10 +12,13 @@ function fetchCharset(file) {
             }
 
             const result = jschardet.detect(data);
+            const encoding = result.encoding
+                ? result.encoding.toLowerCase()
+                : 'unknown'.red;
 
             resolve({
                 file: file,
-                encoding: result.encoding.toLowerCase()
+                encoding: encoding
             });
         });
     });
@@ -35,7 +38,8 @@ function verifyCharsetFileList(ignoreEncoding, matches, iteratee = (args) => arg
     ))
         .catch((err) => {
             const error = err || new Error('Unexpected error');
-            console.error(error.message.red);
+            const message = error.message;
+            console.error(message.red);
             return err;
         });
 }
