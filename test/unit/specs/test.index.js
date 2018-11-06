@@ -10,7 +10,7 @@ describe('General', () => {
                 expect(result).toEqual(jasmine.any(Array));
                 expect(result.length).toEqual(1);
                 expect(result[0].encoding).toEqual('ascii');
-                expect(result[0].file).toMatch(__filename);
+                expect(result[0].file).toEqual(__filename);
             });
     });
 
