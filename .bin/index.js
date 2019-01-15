@@ -30,25 +30,35 @@ const argv = yargs.argv;
 const options = {
     absolute: true,
     nodir: true,
-    dot: true
+    dot: true,
+    ignore: [
+        ".git/**",
+        "node_modules/**",
+    ]
 };
 
-glob(argv.pattern, options)
-    .then((files) => {
+async function bootstrap() {
+    try {
+        const files = await glob(argv.pattern, options);
+
         if (argv.verbose) {
             console.log(`Found items: ${files.length}`.gray);
         }
 
-        EncodingChecker.verify(argv['ignore-encoding'], files, ({ encoding, file, error }) => {
+        const status = await EncodingChecker.verify(argv['ignore-encoding'], files);
+
+        status.forEach(({ encoding, file, error }) => {
             if (error) {
                 const message = error.message || 'unexpected error';
                 console.error(message.red);
-                return;
+            } else {
+                console.log('[%s] %s', encoding, file && file.blue);
             }
-            console.log('[%s] %s', encoding, file && file.blue);
         });
-    })
-    .catch((err) => {
+    } catch (err) {
         const message = err.message;
         console.error(message.red);
-    });
+    }
+}
+
+bootstrap().catch((err) => console.error(err));

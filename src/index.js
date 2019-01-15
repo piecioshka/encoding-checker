@@ -1,6 +1,5 @@
 'use strict';
 
-const sequence = require('sequence-as-promise');
 const jschardet = require('jschardet');
 const fs = require('fs');
 
@@ -30,14 +29,17 @@ function isFile(path) {
     return fs.lstatSync(path).isFile();
 }
 
-function verifyCharsetFileList(ignoreEncoding, matches, iteratee = (args) => args) {
+async function verifyCharsetFileList(ignoreEncoding, matches) {
     const files = matches.filter(isFile);
-    return sequence(files.map((file) => () => fetchCharset(file)
-        .then((charset) => {
-            if (ignoreEncoding === charset.encoding) return;
-            return iteratee(charset);
-        })
-    ));
+
+    const charset = await Promise.all(
+        files.map(fetchCharset)
+    );
+
+    return charset
+        .filter(({ encoding }) => {
+            return (encoding !== ignoreEncoding);
+        });
 }
 
 module.exports = {
