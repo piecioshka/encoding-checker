@@ -49,6 +49,12 @@ Options:
 encoding-checker -p "*.md"
 ```
 
+### :arrow_right: Use case: `Recursive directory`
+
+```bash
+encoding-checker -p "**"
+```
+
 ### :arrow_right: Use case: `Ignore all files with encoding "ascii"`
 
 ```bash
@@ -69,4 +75,4 @@ encoding-checker -v
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org) @ 2015-2018
+[The MIT License](http://piecioshka.mit-license.org) @ 2015-2019
