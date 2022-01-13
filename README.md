@@ -52,6 +52,7 @@ encoding-checker -p "*.md"
 
 ```bash
 encoding-checker -p "**"
+encoding-checker -p "../**"
 ```
 
 ### :arrow_right: Use case: `Ignore all files with encoding "ascii"`
@@ -69,9 +70,9 @@ encoding-checker -v
 ## Supported Operating Systems (tested via Travis)
 
 * Linux
-* macOS
+* macOS _(there is a problem on Travis, but it works on my local machine)_
 * Microsoft Windows
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org) @ 2015-2020
+[The MIT License](http://piecioshka.mit-license.org) @ 2015-2022

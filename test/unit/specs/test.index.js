@@ -19,7 +19,7 @@ describe('General', () => {
             .then((files) => verify('utf-8', files))
             .then((result) => {
                 expect(result).toEqual(jasmine.any(Array));
-                expect(result.length).toEqual(6);
+                expect(result.length).toEqual(5);
                 result.forEach(({ encoding }) => {
                     expect(encoding).toEqual('ascii');
                 })
