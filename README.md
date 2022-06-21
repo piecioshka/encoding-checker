@@ -3,7 +3,6 @@
 [![npm version](https://badge.fury.io/js/encoding-checker.svg)](https://badge.fury.io/js/encoding-checker)
 [![downloads count](https://img.shields.io/npm/dt/encoding-checker.svg)](https://www.npmjs.com/~piecioshka)
 [![travis-ci](https://api.travis-ci.com/piecioshka/encoding-checker.svg?branch=master)](https://app.travis-ci.com/github/piecioshka/encoding-checker)
-[![coveralls](https://coveralls.io/repos/github/piecioshka/encoding-checker/badge.svg?branch=master)](https://coveralls.io/github/piecioshka/encoding-checker?branch=master)
 
 🛠 Tool to investigate files with different encoding than passed
 

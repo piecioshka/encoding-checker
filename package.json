@@ -12,8 +12,7 @@
         "clear": "rm -rf coverage/",
         "clear:all": "npm run clear && rm -rf node_modules/",
         "test": "jasmine --reporter=jasmine-console-reporter JASMINE_CONFIG_PATH=test/unit/jasmine.json",
-        "coverage": "nyc npm run test",
-        "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls -v"
+        "coverage": "nyc npm run test"
     },
     "repository": {
         "type": "git",
@@ -27,7 +26,6 @@
         "yargs": "^17.3.1"
     },
     "devDependencies": {
-        "coveralls": "^3.1.1",
         "jasmine": "^4.0.2",
         "jasmine-console-reporter": "^2.0.1",
         "nyc": "^15.1.0"
