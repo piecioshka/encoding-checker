@@ -27,7 +27,7 @@ Options:
 
 ## Examples
 
-### :arrow_right: Use case: `All files in current directory`
+### :arrow_right: Use case: All files in current directory
 
 ```bash
 > encoding-checker
@@ -41,26 +41,26 @@ Options:
 [ascii] wallaby.js
 ```
 
-### :arrow_right: Use case: `All *.md files in current directory`
+### :arrow_right: Use case: All *.md files in current directory
 
 ```bash
 encoding-checker -p "*.md"
 ```
 
-### :arrow_right: Use case: `Recursive directory`
+### :arrow_right: Use case: Recursive directory
 
 ```bash
 encoding-checker -p "**"
 encoding-checker -p "../**"
 ```
 
-### :arrow_right: Use case: `Ignore all files with encoding "ascii"`
+### :arrow_right: Use case: Ignore all files with encoding "ascii"
 
 ```bash
 encoding-checker -i "ascii"
 ```
 
-### :arrow_right: Use case: `Append number of results`
+### :arrow_right: Use case: Append number of results
 
 ```bash
 encoding-checker -v
@@ -74,4 +74,4 @@ encoding-checker -v
 
 ## License
 
-[The MIT License](http://piecioshka.mit-license.org) @ 2015-2022
+[The MIT License](http://piecioshka.mit-license.org) @ 2015

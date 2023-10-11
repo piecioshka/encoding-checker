@@ -11,7 +11,7 @@
     "scripts": {
         "clear": "rm -rf coverage/",
         "clear:all": "npm run clear && rm -rf node_modules/",
-        "test": "jasmine --reporter=jasmine-console-reporter JASMINE_CONFIG_PATH=test/unit/jasmine.json",
+        "test": "jasmine --reporter=jasmine-console-reporter src/*.spec.js",
         "coverage": "nyc npm run test"
     },
     "repository": {
@@ -30,14 +30,18 @@
         "jasmine-console-reporter": "^2.0.1",
         "nyc": "^15.1.0"
     },
+    "engines": {
+        "node": ">=12"
+    },
     "files": [
-        ".bin",
+        "bin",
         "src",
         "index.js",
         "package.json",
         "README.md"
     ],
     "keywords": [
+        "cli",
         "encoding",
         "checker",
         "file",
@@ -50,5 +54,5 @@
     ],
     "preferGlobal": true,
     "main": "./index.js",
-    "bin": "./.bin/index.js"
+    "bin": "./bin/cli.js"
 }

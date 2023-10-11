@@ -37,7 +37,7 @@ const options = {
     ]
 };
 
-async function bootstrap() {
+async function main() {
     try {
         const files = await glob(argv.pattern, options);
 
@@ -61,4 +61,4 @@ async function bootstrap() {
     }
 }
 
-bootstrap().catch((err) => console.error(err));
+main().catch((err) => console.error(err));

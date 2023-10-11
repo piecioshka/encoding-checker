@@ -1,6 +1,6 @@
 'use strict';
 
-const verify = require('../../../src/index').verify;
+const verify = require('./index').verify;
 const glob = require('glob-promise');
 
 describe('General', () => {
