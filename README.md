@@ -27,7 +27,7 @@ Options:
 
 ## Examples
 
-### :arrow_right: Use case: All files in current directory
+### :arrow_right: Use case: All files in the current directory
 
 ```bash
 > encoding-checker
