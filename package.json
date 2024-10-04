@@ -16,7 +16,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "http://github.com/piecioshka/encoding-checker.git"
+        "url": "git@github.com:piecioshka/encoding-checker.git"
     },
     "dependencies": {
         "colors": "^1.4.0",
