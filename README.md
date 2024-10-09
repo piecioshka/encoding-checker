@@ -4,7 +4,6 @@
 [![npm version](https://badge.fury.io/js/encoding-checker.svg)](https://badge.fury.io/js/encoding-checker)
 [![downloads count](https://img.shields.io/npm/dt/encoding-checker.svg)](https://www.npmjs.com/package/encoding-checker)
 [![license](https://img.shields.io/npm/l/encoding-checker.svg)](https://www.npmjs.com/package/encoding-checker)
-[![travis-ci](https://api.travis-ci.com/piecioshka/encoding-checker.svg?branch=master)](https://app.travis-ci.com/github/piecioshka/encoding-checker)
 
 🛠 Tool to investigate files with different encoding than passed
 
@@ -35,7 +34,6 @@ Options:
 > encoding-checker
 
 [ascii] .gitignore
-[ascii] .travis.yml
 [ascii] index.js
 [ascii] package-lock.json
 [ascii] package.json
@@ -67,12 +65,6 @@ encoding-checker -i "ascii"
 ```bash
 encoding-checker -v
 ```
-
-## Supported Operating Systems (tested via Travis)
-
-* Linux
-* macOS _(there is a problem on Travis, but it works on my local machine)_
-* Microsoft Windows
 
 ## License
 
