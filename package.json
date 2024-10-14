@@ -16,7 +16,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:piecioshka/encoding-checker.git"
+        "url": "git+ssh://git@github.com/piecioshka/encoding-checker.git"
     },
     "dependencies": {
         "colors": "^1.4.0",
@@ -52,7 +52,8 @@
         "get",
         "utf-8"
     ],
-    "preferGlobal": true,
     "main": "./index.js",
-    "bin": "./bin/cli.js"
+    "bin": {
+        "encoding-checker": "bin/cli.js"
+    }
 }
