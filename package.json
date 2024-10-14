@@ -12,7 +12,7 @@
         "clear": "rm -rf coverage/",
         "clear:all": "npm run clear && rm -rf node_modules/",
         "test": "jasmine --reporter=jasmine-console-reporter src/*.spec.js",
-        "coverage": "nyc npm run test"
+        "coverage": "nyc npm run test && nyc report --reporter=html"
     },
     "repository": {
         "type": "git",
