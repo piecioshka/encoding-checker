@@ -11,7 +11,7 @@
     "scripts": {
         "clear": "rm -rf coverage/",
         "clear:all": "npm run clear && rm -rf node_modules/",
-        "test": "jasmine --reporter=jasmine-console-reporter src/*.spec.js",
+        "test": "jasmine src/*.spec.js",
         "coverage": "nyc npm run test && nyc report --reporter=html"
     },
     "repository": {
@@ -27,7 +27,6 @@
     },
     "devDependencies": {
         "jasmine": "^4.0.2",
-        "jasmine-console-reporter": "^2.0.1",
         "nyc": "^15.1.0"
     },
     "engines": {
