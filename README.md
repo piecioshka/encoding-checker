@@ -6,7 +6,7 @@
 [![license](https://img.shields.io/npm/l/encoding-checker.svg)](https://piecioshka.mit-license.org)
 [![github-ci](https://github.com/piecioshka/encoding-checker/actions/workflows/testing.yml/badge.svg)](https://github.com/piecioshka/encoding-checker/actions/workflows/testing.yml)
 
-🛠 Tool to investigate files with different encoding than passed
+🔨 Tool to investigate files with different encoding than passed
 
 ## Install
 
@@ -29,7 +29,7 @@ Options:
 
 ## Examples
 
-### :arrow_right: Use case: All files in the current directory
+### ➡️ Use case: All files in the current directory
 
 ```bash
 > encoding-checker
@@ -42,26 +42,26 @@ Options:
 [ascii] wallaby.js
 ```
 
-### :arrow_right: Use case: All *.md files in current directory
+### ➡️ Use case: All *.md files in current directory
 
 ```bash
 encoding-checker -p "*.md"
 ```
 
-### :arrow_right: Use case: Recursive directory
+### ➡️ Use case: Recursive directory
 
 ```bash
 encoding-checker -p "**"
 encoding-checker -p "../**"
 ```
 
-### :arrow_right: Use case: Ignore all files with encoding "ascii"
+### ➡️ Use case: Ignore all files with encoding "ascii"
 
 ```bash
 encoding-checker -i "ascii"
 ```
 
-### :arrow_right: Use case: Append number of results
+### ➡️ Use case: Append number of results
 
 ```bash
 encoding-checker -v

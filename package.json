@@ -1,6 +1,6 @@
 {
     "name": "encoding-checker",
-    "description": "Tool to investigate files with different encoding than passed",
+    "description": "🔨 Tool to investigate files with different encoding than passed",
     "version": "1.1.15",
     "license": "MIT",
     "author": {
