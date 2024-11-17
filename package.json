@@ -14,10 +14,6 @@
         "test": "jasmine src/*.spec.js",
         "coverage": "nyc npm run test && nyc report --reporter=html"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+ssh://git@github.com/piecioshka/encoding-checker.git"
-    },
     "dependencies": {
         "colors": "^1.4.0",
         "glob": "^7.2.0",
@@ -28,6 +24,10 @@
     "devDependencies": {
         "jasmine": "^4.0.2",
         "nyc": "^15.1.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/piecioshka/encoding-checker.git"
     },
     "engines": {
         "node": ">=12"
