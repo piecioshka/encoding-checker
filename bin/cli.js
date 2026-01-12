@@ -4,28 +4,43 @@
 
 require('colors');
 
-const yargs = require('yargs');
+const minimist = require('minimist');
 const glob = require('glob-promise');
 const EncodingChecker = require('../src/index');
 
-yargs.usage('Usage: $0 [-p pattern] [-i encoding] [-v]');
-
-yargs.option('pattern', {
-    alias: ['p', 'd'],
-    default: '*'
+const argv = minimist(process.argv.slice(2), {
+    string: ['pattern', 'p', 'd', 'ignore-encoding', 'i'],
+    boolean: ['verbose', 'v', 'help', 'version'],
+    alias: {
+        p: ['pattern', 'd'],
+        i: 'ignore-encoding',
+        v: 'verbose'
+    },
+    default: {
+        pattern: '*',
+        'ignore-encoding': ''
+    }
 });
 
-yargs.option('ignore-encoding', {
-    alias: 'i',
-    default: ''
-});
+// Handle --help
+if (argv.help) {
+    console.log('Usage: encoding-checker [-p pattern] [-i encoding] [-v]');
+    console.log('');
+    console.log('Options:');
+    console.log('  --help                 Show help                                     [boolean]');
+    console.log('  --version              Show version number                           [boolean]');
+    console.log('  --pattern, -p, -d                                               [default: "*"]');
+    console.log('  --ignore-encoding, -i                                            [default: ""]');
+    console.log('  --verbose, -v                                                 [default: false]');
+    process.exit(0);
+}
 
-yargs.option('verbose', {
-    alias: 'v',
-    default: false
-});
-
-const argv = yargs.argv;
+// Handle --version
+if (argv.version) {
+    const pkg = require('../package.json');
+    console.log(pkg.version);
+    process.exit(0);
+}
 
 const options = {
     absolute: true,
