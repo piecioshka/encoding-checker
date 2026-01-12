@@ -11,7 +11,7 @@
     "scripts": {
         "clear": "rm -rf coverage/",
         "clear:all": "npm run clear && rm -rf node_modules/",
-        "test": "jest",
+        "test": "jest --verbose",
         "coverage": "jest --coverage"
     },
     "dependencies": {
