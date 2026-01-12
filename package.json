@@ -30,7 +30,7 @@
         "url": "git+ssh://git@github.com/piecioshka/encoding-checker.git"
     },
     "engines": {
-        "node": ">=12"
+        "node": ">=16"
     },
     "files": [
         "bin",
