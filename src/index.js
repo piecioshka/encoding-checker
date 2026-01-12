@@ -26,7 +26,11 @@ function fetchCharset(file) {
 }
 
 function isFile(path) {
-    return fs.lstatSync(path).isFile();
+    try {
+        return fs.lstatSync(path).isFile();
+    } catch (error) {
+        return false;
+    }
 }
 
 async function verifyCharsetFileList(ignoreEncoding, matches) {

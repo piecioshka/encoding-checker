@@ -18,7 +18,7 @@
         "colors": "^1.4.0",
         "glob": "^7.2.0",
         "glob-promise": "^4.2.2",
-        "jschardet": "^3.0.0",
+        "jschardet": "^3.1.4",
         "minimist": "^1.2.8"
     },
     "devDependencies": {
