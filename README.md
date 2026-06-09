@@ -10,6 +10,8 @@
 
 🔨 Tool to investigate files with different encoding than passed
 
+![](demo/encoding-checker.gif)
+
 ## Usage
 
 Installation:
