@@ -1,10 +1,21 @@
-"use strict";
+import { describe, it, expect, vi } from "vitest";
+import { verify } from "./index";
+import glob from "glob-promise";
+import * as fs from "fs";
+import * as path from "path";
+import * as jschardet from "jschardet";
 
-const verify = require("./index").verify;
-const glob = require("glob-promise");
-const fs = require("fs");
-const path = require("path");
-const jschardet = require("jschardet");
+// Partial mock: keep the real `detect` implementation by default so most tests
+// exercise actual encoding detection, while still allowing individual tests to
+// override the return value. The mocked module is shared with the code under
+// test, so overrides take effect there.
+vi.mock("jschardet", async (importOriginal) => {
+    const actual = await importOriginal<typeof import("jschardet")>();
+    return {
+        ...actual,
+        detect: vi.fn(actual.detect),
+    };
+});
 
 describe("General", () => {
     it("should works with single file", () => {
@@ -76,9 +87,9 @@ describe("General", () => {
             expect(result.length).toEqual(1);
 
             // One should be a valid file with encoding
-            const validResult = result.find(r => r.file === validFile);
+            const validResult = result.find((r) => r.file === validFile);
             expect(validResult).toBeDefined();
-            expect(validResult.encoding).toEqual("ascii");
+            expect(validResult?.encoding).toEqual("ascii");
         });
     });
 
@@ -95,7 +106,7 @@ describe("General", () => {
         const tmpFile = path.join(__dirname, "temp-test-file.bin");
 
         // Create a file with binary content that might be hard to detect
-        const buffer = Buffer.from([0xFF, 0xFE, 0x00, 0x00]);
+        const buffer = Buffer.from([0xff, 0xfe, 0x00, 0x00]);
         fs.writeFileSync(tmpFile, buffer);
 
         try {
@@ -113,7 +124,7 @@ describe("General", () => {
 
     it("should process multiple files concurrently", async () => {
         const files = await glob("*.js");
-        const validFiles = files.filter(file => {
+        const validFiles = files.filter((file) => {
             try {
                 return fs.lstatSync(file).isFile();
             } catch (e) {
@@ -132,18 +143,14 @@ describe("General", () => {
     });
 
     it("should handle fs.readFile errors gracefully", async () => {
-        // Mock fs.readFile to simulate an error
-        const originalReadFile = fs.readFile;
-        const testFile = __filename;
-
-        // We need to actually trigger the error path in fetchCharset
-        // Create a test file, then make it unreadable
+        // We need to actually trigger the error path in fetchCharset.
+        // Create a test file, then make it unreadable.
         const tmpFile = path.join(__dirname, "unreadable-test.txt");
         fs.writeFileSync(tmpFile, "test content");
 
         try {
             // Change permissions to make it unreadable (works on Unix-like systems)
-            if (process.platform !== 'win32') {
+            if (process.platform !== "win32") {
                 fs.chmodSync(tmpFile, 0o000);
 
                 const result = await verify("utf-8", [tmpFile]);
@@ -154,7 +161,7 @@ describe("General", () => {
         } finally {
             // Clean up - restore permissions and delete
             try {
-                if (process.platform !== 'win32') {
+                if (process.platform !== "win32") {
                     fs.chmodSync(tmpFile, 0o644);
                 }
                 fs.unlinkSync(tmpFile);
@@ -165,8 +172,8 @@ describe("General", () => {
     });
 
     it("should handle files with undetectable encoding", async () => {
-        // Create a file with content that might result in no encoding detection
-        // Empty files or files with very little data might not be detected properly
+        // Create a file with content that might result in no encoding detection.
+        // Empty files or files with very little data might not be detected properly.
         const tmpFile = path.join(__dirname, "empty-test.txt");
         fs.writeFileSync(tmpFile, "");
 
@@ -194,25 +201,23 @@ describe("General", () => {
     });
 
     it("should handle when jschardet returns null encoding", async () => {
-        // Mock jschardet to return null encoding
-        const originalDetect = jschardet.detect;
         const tmpFile = path.join(__dirname, "mock-test.txt");
         fs.writeFileSync(tmpFile, "test");
 
-        try {
-            // Mock jschardet.detect to return null encoding
-            jschardet.detect = jest.fn(() => ({ encoding: null }));
+        // Mock jschardet.detect to return null encoding for this single call.
+        vi.mocked(jschardet.detect).mockReturnValueOnce({
+            encoding: null,
+            confidence: 0,
+        });
 
-            // Use a different ignore encoding so it shows up in results
+        try {
+            // Use a different ignore encoding so it shows up in results.
             const result = await verify("utf-8", [tmpFile]);
             expect(result).toEqual(expect.any(Array));
-            // When encoding is null, it returns 'unknown', which is filtered out
-            // if it doesn't match the ignore encoding
+            // When encoding is null, it returns 'unknown', which is kept
+            // because it doesn't match the ignored encoding.
             expect(result.length).toEqual(1);
         } finally {
-            // Restore original function
-            jschardet.detect = originalDetect;
-            // Clean up
             if (fs.existsSync(tmpFile)) {
                 fs.unlinkSync(tmpFile);
             }
@@ -220,22 +225,20 @@ describe("General", () => {
     });
 
     it("should handle when jschardet returns undefined encoding", async () => {
-        // Mock jschardet to return undefined encoding
-        const originalDetect = jschardet.detect;
         const tmpFile = path.join(__dirname, "mock-test2.txt");
         fs.writeFileSync(tmpFile, "test");
 
-        try {
-            // Mock jschardet.detect to return undefined encoding
-            jschardet.detect = jest.fn(() => ({ encoding: undefined }));
+        // Mock jschardet.detect to return undefined encoding for this call.
+        vi.mocked(jschardet.detect).mockReturnValueOnce({
+            encoding: undefined,
+            confidence: 0,
+        });
 
+        try {
             const result = await verify("utf-8", [tmpFile]);
             expect(result).toEqual(expect.any(Array));
             expect(result.length).toEqual(1);
         } finally {
-            // Restore original function
-            jschardet.detect = originalDetect;
-            // Clean up
             if (fs.existsSync(tmpFile)) {
                 fs.unlinkSync(tmpFile);
             }

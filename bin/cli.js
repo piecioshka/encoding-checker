@@ -6,7 +6,7 @@ require('colors');
 
 const minimist = require('minimist');
 const glob = require('glob-promise');
-const EncodingChecker = require('../src/index');
+const EncodingChecker = require('../dist/index');
 
 const argv = minimist(process.argv.slice(2), {
     string: ['pattern', 'p', 'd', 'ignore-encoding', 'i'],
