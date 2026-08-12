@@ -1,5 +1,7 @@
 # encoding-checker
 
+![typescript](https://img.shields.io/badge/built%20with-TypeScript-3178c6.svg)
+
 [![cli-available](https://badgen.net/static/cli/available/?icon=terminal)](#cli)
 [![node version](https://img.shields.io/node/v/encoding-checker.svg)](https://www.npmjs.com/package/encoding-checker)
 [![npm version](https://badge.fury.io/js/encoding-checker.svg)](https://badge.fury.io/js/encoding-checker)
