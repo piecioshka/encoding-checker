@@ -7,6 +7,7 @@
 [![size](https://packagephobia.com/badge?p=encoding-checker)](https://packagephobia.com/result?p=encoding-checker)
 [![license](https://img.shields.io/npm/l/encoding-checker.svg)](https://piecioshka.mit-license.org)
 [![github-ci](https://github.com/piecioshka/encoding-checker/actions/workflows/testing.yml/badge.svg)](https://github.com/piecioshka/encoding-checker/actions/workflows/testing.yml)
+![typescript](https://img.shields.io/badge/built%20with-TypeScript-3178c6.svg)
 
 🔨 Tool to investigate files with different encoding than passed
 
