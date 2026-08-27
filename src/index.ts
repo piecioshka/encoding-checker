@@ -19,7 +19,7 @@ function fetchCharset(file: string): Promise<EncodingResult> {
             const result = jschardet.detect(data);
             const encoding = result.encoding
                 ? result.encoding.toLowerCase()
-                : "unknown".red;
+                : "unknown";
 
             resolve({
                 file: file,

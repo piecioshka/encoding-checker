@@ -214,9 +214,12 @@ describe("General", () => {
             // Use a different ignore encoding so it shows up in results.
             const result = await verify("utf-8", [tmpFile]);
             expect(result).toEqual(expect.any(Array));
-            // When encoding is null, it returns 'unknown', which is kept
-            // because it doesn't match the ignored encoding.
+            // When encoding is null, it returns the plain string 'unknown'
+            // (no ANSI color codes) and keeps it, because it doesn't match
+            // the ignored encoding. Guards against re-introducing `.red` in
+            // the library layer, which returned `undefined` without `colors`.
             expect(result.length).toEqual(1);
+            expect(result[0].encoding).toBe("unknown");
         } finally {
             if (fs.existsSync(tmpFile)) {
                 fs.unlinkSync(tmpFile);
