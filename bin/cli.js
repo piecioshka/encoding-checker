@@ -66,14 +66,17 @@ async function main() {
             if (error) {
                 const message = error.message || 'unexpected error';
                 console.error(message.red);
+                process.exitCode = 1;
             } else {
-                console.log('[%s] %s', encoding, file && file.blue);
+                const label = encoding === 'unknown' ? encoding.red : encoding;
+                console.log('[%s] %s', label, file && file.blue);
             }
         });
     } catch (err) {
         const message = err.message;
         console.error(message.red);
+        process.exitCode = 1;
     }
 }
 
-main().catch((err) => console.error(err));
+main();
